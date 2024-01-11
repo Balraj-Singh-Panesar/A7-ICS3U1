@@ -9,7 +9,7 @@ class MainMenu{
 
         switch (choice) {
             case 1:
-                // connect 4 functions
+                // connect 4 functions k
         }
     }
 }

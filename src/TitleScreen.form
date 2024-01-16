@@ -40,7 +40,7 @@
             <properties>
               <background color="-12490271"/>
               <font name="Courier New" size="48" style="1"/>
-              <text value="Connect 4!"/>
+              <text value="  Connect 4!"/>
             </properties>
           </component>
           <component id="fb445" class="javax.swing.JTextField" binding="playerOneTextField" default-binding="true">

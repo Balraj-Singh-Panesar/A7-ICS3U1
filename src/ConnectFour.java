@@ -1,5 +1,5 @@
 import javax.swing.*;
-class ConnectFour{
+class  ConnectFour{
     //Keeps track of what player is currently playing, if the player is player one it is true
     private boolean isPlayerOne;
     //Keeps track of if a column is full to prevent a player for adding a piece into full column

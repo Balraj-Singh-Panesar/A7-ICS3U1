@@ -1,10 +1,21 @@
 import java.util.Scanner;
 
+import javax.swing.*;
+import java.awt.*;
+
 class MainMenu{
 
     String playerOneName = "Player One";
     String playerTwoName = "Player Two";
     public static void menu() {
+
+        JFrame myFrame = new JFrame();
+
+        myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        myFrame.setSize(new Dimension(500,500));
+        myFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        myFrame.setLocationRelativeTo(null);
+
         Scanner myObj = new Scanner(System.in);
 
         // gets the users names
@@ -21,6 +32,13 @@ class MainMenu{
 
         // determines if the user wants to play connect 4 or exit the program
         switch (choice) {
+            case 1: // connect 4 is chosen
+                // connect 4 function
+            case 2: // the user exits the game
+                break;
+        } */
+    }
+}
             case 1:
                 // connect 4 function
             case 2:

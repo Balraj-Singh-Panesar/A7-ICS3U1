@@ -1,3 +1,6 @@
+import javax.swing.*;
+class  ConnectFour{
+    //Keeps track of what player is currently playing, if the player is player one it is true
 
 class ConnectFour{
     /**

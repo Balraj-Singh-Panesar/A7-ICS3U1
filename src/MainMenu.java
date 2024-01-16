@@ -1,4 +1,5 @@
 import java.util.Scanner;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -15,8 +16,6 @@ class MainMenu{
         myFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         myFrame.setLocationRelativeTo(null);
 
-
-
         Scanner myObj = new Scanner(System.in);
 
         // gets the users names
@@ -25,7 +24,6 @@ class MainMenu{
         System.out.println("What is player twos name");
         String playerTwoName = myObj.nextLine();
 
-        /*
         System.out.println("Main Menu \n====================================");
         System.out.println("1. Connect 4 \n2. Quit");
 
@@ -41,4 +39,12 @@ class MainMenu{
         } */
     }
 }
-
+            case 1:
+                // connect 4 function
+            case 2:
+                break;
+            default:
+            // if invalid choice is inputted, default to something
+        }
+    }
+}

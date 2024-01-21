@@ -1,3 +1,7 @@
+import javax.swing.*;
+import java.awt.*;
+
+
 /*
  * Culminating Assignment A7 in ICS3U1
  * Date Created 2024/01/11
@@ -10,23 +14,42 @@
  * Quality Assurance - Ella
  * */
 
-import javax.swing.*;
-import java.awt.*;
-
-class A7 {
+class A7 extends JFrame {
+    /** The name that appears on the frame when the window is opened */
     private static final String FRAME_NAME = "Connect Four";
-    private static final String FILE_PATH_TO_ICON = "";
-    private static void createWindow(){
-        JFrame A7 = new JFrame(FRAME_NAME);
-        ImageIcon icon = new ImageIcon(FILE_PATH_TO_ICON);
-        A7.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        A7.setSize(new Dimension(810,  1440));
-        A7.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        A7.setIconImage(icon.getImage());
-        A7.setVisible(true);
-    }
-    public static void main(String[] args) {
-        createWindow();
+    /** The file path of the icon to appear when the window is opened*/
+    private static final String FILE_PATH_TO_ICON = "ConnectFourIcon.png";
+    /**The colour of the background in RGB values*/
+    private static Color backGroundColour = new Color(21, 96, 246);
 
+    ConnectFour _ConnectFour = new ConnectFour();
+
+
+    public void run() {
+            //Create the ImageIcon Object and define the file path to the image
+            ImageIcon icon = new ImageIcon(FILE_PATH_TO_ICON);
+            //Sets the default close operation to exit the program when closed
+            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                //Sets the default size of the window when the window is not full screen
+            this.setSize(new Dimension(1440, 810 ));
+            //Sets the background colour
+            this.getContentPane().setBackground(backGroundColour);
+            //Sets the JFrame to be full screen when created
+            this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            //Applies the IconImage to the JFrame;
+            this.setIconImage(icon.getImage());
+            //Disables default layout
+            this.setLayout(null);
+            //Sets the window to be visible after every config is applied
+            this.setVisible(true);
+
+            _ConnectFour.init(this);
+            this.repaint();
+
+
+        }
+        public static void main(String[] args){
+            A7 myPanel = new A7();
+            myPanel.run();
+        }
     }
-}

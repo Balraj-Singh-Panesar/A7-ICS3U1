@@ -97,17 +97,17 @@ class ConnectFour{
                 }
             }
         }
-//        //check diagonal
-//        for (int colunm = 0; colunm < BOARD_SIZE_X - 3; colunm++){
-//            for (int row = 0; row++ < BOARD_SIZE_Y - 3; row++){
-//                if (board[colunm][row].isFull() && board[colunm][row].getState() == board[colunm + 1][row + 1].getState() && board[colunm][row].getState() == board[colunm + 2][row + 2].getState() && board[colunm][row].getState() == board[colunm + 3][row + 3].getState()){
-//                    return matchStates.WON;
-//                }
-//                if (board[colunm + 3][row].isFull() && board[colunm + 3][row].getState() == board[colunm + 2][row + 1].getState() && board[colunm + 3][row].getState() == board[colunm + 1][row + 2].getState() && board[colunm + 3][row].getState() == board[colunm][row + 3].getState()){
-//                    return matchStates.WON;
-//                }
-//            }
-//        }
+        //check diagonal
+        for (int column = 0; column < BOARD_SIZE_X - 3; column++){
+            for (int row = 0; row < BOARD_SIZE_Y - 3; row++){
+                if (board[column][row].isFull() && board[column][row].getState() == board[column + 1][row + 1].getState() && board[column][row].getState() == board[column + 2][row + 2].getState() && board[column][row].getState() == board[column + 3][row + 3].getState()){
+                    return matchStates.WON;
+                }
+                if (column + 3 < BOARD_SIZE_X && row + 3 < BOARD_SIZE_Y && board[column + 3][row].isFull() && board[column + 3][row].getState() == board[column + 2][row + 1].getState() && board[column + 3][row].getState() == board[column + 1][row + 2].getState() && board[column + 3][row].getState() == board[column][row + 3].getState()){
+                    return matchStates.WON;
+                }
+            }
+        }
 
         //check if board is full
         for (int column = 0; column < BOARD_SIZE_X; column++){

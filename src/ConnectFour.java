@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 
 class ConnectFour{
@@ -7,42 +8,117 @@ class ConnectFour{
     /**Number of grid cells in a board for y*/
     private final int BOARD_SIZE_Y = 6;
     /** Keeps track of what player is currently playing, if the current player is player one it is true */
-    private boolean isPlayerOne;
+    public boolean isPlayerOne;
+    /** the possible states the match could be in */
+    /**Stores the name of the colour corrosponding ot the current player*/
+    String pieceColour = "";
     /** the possible states the match could be in */
     enum matchStates {
       WON, TIE, PLAYING
     };
-
-
     /** 2D array that represents the Connect Four Board */
     GridCell[][] board = null;
 
+    /**Initialized the connect Four class*/
     public void init(A7 parent){
         this.parent = parent;
+        //creates the connect four board
         board = new GridCell[BOARD_SIZE_X][BOARD_SIZE_Y];
-        for (int i = 0; i < BOARD_SIZE_X; i++) {
-            for (int j = 0; j < BOARD_SIZE_Y; j++) {
-                board[i][j] = new GridCell(GridCell.GRID_X_SPACING * (i + 1), GridCell.GRID_Y_SPACING * (j + 1),parent);
+        for (int coloumn = 0; coloumn < BOARD_SIZE_X; coloumn++) {
+            for (int row = 0; row < BOARD_SIZE_Y; row++) {
+                board[coloumn][row] = new GridCell(GridCell.GRID_X_SPACING * (coloumn + 1), GridCell.GRID_Y_SPACING * (row + 1),parent,coloumn);
             }
         }
-        board[1][3].setState(GridCell.State.PLAYER_TWO);
+    }
+
+    /**Checks if anyone has won and displays the winnder*/
+    public void DisplayWinner(){
+        if(matchState() == matchStates.WON){
+            parent.repaint();
+            JOptionPane.showMessageDialog(parent, pieceColour + " has won the match!" );
+        }
+        if(isPlayerOne){
+            pieceColour = "Red";
+        }
+        else{
+            pieceColour = "Yellow";
+        }
+    }
+
+    /**Adds game piece to the board
+     * @param column*/
+    public void addPiece(int column){
+        // The game piece is only added if the column is not full and if the game is still playing
+        if (!invalidMove(column) && matchState() == matchStates.PLAYING) {
+            /*
+            * Start at the bottom of the board, if the current position is full, go up one
+            * repeat this until empty spot is found and set state of the current grid cell to the current player
+            * */
+            for (int row = BOARD_SIZE_Y - 1; row >= 0; row--){
+                if(!board[column][row].isFull()){
+                    if(isPlayerOne){
+                        board[column][row].setState(GridCell.State.PLAYER_ONE);
+                    }
+                    else {
+                        board[column][row].setState(GridCell.State.PLAYER_TWO);
+                    }
+                    break;
+                }
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(parent, "Invalid Move" );
+        }
     }
 
     /** Determines if the move is invalid. IE. Player attempts to add the piece to full column
     @return true if invalid */
-    private boolean invalidMove(){
-        return false;
+    private boolean invalidMove(int column){
+        // checks the top of the board to see if is full
+        return (board[column][0].isFull());
     }
 
     /** Determines the match state
      *@return enum matchStates */
+    public matchStates matchState(){
+        //Check horizontal win conditions
+        for (int column = 0; column < BOARD_SIZE_X - 3; column++){
+            for(int row = 0; row < BOARD_SIZE_Y; row++){
+                if (board[column][row].isFull() && board[column][row].getState() == board[column + 1][row].getState() && board[column][row].getState() == board[column + 2][row].getState() && board[column][row].getState() == board[column + 3][row].getState()){
+                    return matchStates.WON;
+                }
+            }
+        }
+        //check vertical win condition
+        for (int colunm = 0; colunm < BOARD_SIZE_X; colunm++){
+            for(int row = 0; row < BOARD_SIZE_Y - 3; row++){
+                if (board[colunm][row].isFull() && board[colunm][row].getState() == board[colunm][row + 1].getState() && board[colunm][row].getState() == board[colunm][row + 2].getState() && board[colunm][row].getState() == board[colunm][row + 3].getState()){
+                    return matchStates.WON;
+                }
+            }
+        }
+        //check diagonal
+        for (int colunm = 0; colunm < BOARD_SIZE_X - 3; colunm++){
+            for (int row = 0; row++ < BOARD_SIZE_Y - 3; row++){
+                if (board[colunm][row].isFull() && board[colunm][row].getState() == board[colunm + 1][row + 1].getState() && board[colunm][row].getState() == board[colunm + 2][row + 2].getState() && board[colunm][row].getState() == board[colunm + 3][row + 3].getState()){
+                    return matchStates.WON;
+                }
+                if (board[colunm + 3][row].isFull() && board[colunm + 3][row].getState() == board[colunm + 2][row + 1].getState() && board[colunm + 3][row].getState() == board[colunm + 1][row + 2].getState() && board[colunm + 3][row].getState() == board[colunm][row + 3].getState()){
+                    return matchStates.WON;
+                }
+            }
+        }
 
-
-
-
-
-
-
-
+        //check if board is full
+        for (int column = 0; column < BOARD_SIZE_X; column++){
+            for (int row = 0; row < BOARD_SIZE_Y; row++){
+                if (!board[column][row].isFull()){
+                    return matchStates.PLAYING;
+                }
+            }
+        }
+        //if the board is full then it is a tie
+        return matchStates.TIE;
+    }
 
 }

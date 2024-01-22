@@ -22,7 +22,7 @@ class A7 extends JFrame {
     /**The colour of the background in RGB values*/
     private static Color backGroundColour = new Color(21, 96, 246);
 
-    ConnectFour _ConnectFour = new ConnectFour();
+    static ConnectFour _ConnectFour = new ConnectFour();
 
 
     public void run() {
@@ -30,7 +30,7 @@ class A7 extends JFrame {
             ImageIcon icon = new ImageIcon(FILE_PATH_TO_ICON);
             //Sets the default close operation to exit the program when closed
             this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                //Sets the default size of the window when the window is not full screen
+            //Sets the default size of the window when the window is not full screen
             this.setSize(new Dimension(1440, 810 ));
             //Sets the background colour
             this.getContentPane().setBackground(backGroundColour);
@@ -49,7 +49,22 @@ class A7 extends JFrame {
 
         }
         public static void main(String[] args){
-            A7 myPanel = new A7();
-            myPanel.run();
-        }
+            A7 Panel = new A7();
+            Panel.run();
+
+            while (true){
+                _ConnectFour.DisplayWinner();
+                Panel.repaint();
+                if(_ConnectFour.matchState() != ConnectFour.matchStates.PLAYING){
+                    break;
+                }
+
+                try {
+                    Thread.sleep(10);
+                }
+                catch (InterruptedException ignored) {
+
+                }
+            }
     }
+}

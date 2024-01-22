@@ -1,13 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
 
-
 /*
  * Culminating Assignment A7 in ICS3U1
  * Date Created 2024/01/11
- * Code Contributors: Balraj Singh,
  * ROLES:
- * Chief Operating Officer - Charlie
+ * Chief Executive Officer - Charlie
  * Product Manager - Isa
  * Coder - Balraj
  * User Experience - Kristiana
@@ -26,6 +24,7 @@ class A7 extends JFrame {
 
 
     public void run() {
+            this.setName(FRAME_NAME);
             //Create the ImageIcon Object and define the file path to the image
             ImageIcon icon = new ImageIcon(FILE_PATH_TO_ICON);
             //Sets the default close operation to exit the program when closed
@@ -56,9 +55,6 @@ class A7 extends JFrame {
             while (true){
                 _ConnectFour.DisplayWinner();
                 Panel.repaint();
-                if(_ConnectFour.matchState() != ConnectFour.matchStates.PLAYING){
-                    break;
-                }
 
                 try {
                     Thread.sleep(10);

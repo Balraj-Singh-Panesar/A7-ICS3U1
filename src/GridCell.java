@@ -27,7 +27,7 @@ public class GridCell extends JPanel {
     private static final Color playerTwoColour = new Color(255, 206, 0);
     /**Colour of the outline of the grid cell for player two*/
     private static final Color playerTwoOutlineColour = new Color(159, 132, 18);
-
+    /**Stroke width of gamepiece outline*/
     private static final int STROKE_WIDTH = 10;
 
 
@@ -41,14 +41,17 @@ public class GridCell extends JPanel {
     /**Stores the current state of grid cell*/
     private State state = State.EMPTY;
 
-    /** Creates a Jpanel on frame of a fixed size
+    /** Creates a Jpanel on a frame of a fixed size
      * @param xOffset Relative to the initial offset
-     * @param yOffset Relative to the initial offset*/
+     * @param yOffset Relative to the initial offset
+     * @param parent object
+     * @param column number*/
     GridCell(int xOffset, int yOffset, A7 parent, int column){
         this.parent = parent;
         this.column = column;
 
         this.setBounds(GRID_X_OFFSET + xOffset,GRID_Y_OFFSET + yOffset, GRID_CELL_SIZE, GRID_CELL_SIZE);
+        //adds game piece if column is pressed.
         this.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e){
                 parent._ConnectFour.addPiece(column);

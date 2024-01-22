@@ -10,7 +10,7 @@ class ConnectFour{
     /** Keeps track of what player is currently playing, if the current player is player one it is true */
     public boolean isPlayerOne;
     /** the possible states the match could be in */
-    /**Stores the name of the colour corrosponding ot the current player*/
+    /**Stores the name of the colour corresponding ot the current player*/
     String pieceColour = "";
     /** the possible states the match could be in */
     enum matchStates {
@@ -31,11 +31,27 @@ class ConnectFour{
         }
     }
 
-    /**Checks if anyone has won and displays the winnder*/
+    /**Clears the board by setting every cell's state to zero*/
+    private void resetBoard(){
+        isPlayerOne = true;
+        for (int coloumn = 0; coloumn < BOARD_SIZE_X; coloumn++) {
+            for (int row = 0; row < BOARD_SIZE_Y; row++) {
+                board[coloumn][row].setState(GridCell.State.EMPTY);
+            }
+        }
+    }
+
+    /**Checks if anyone has won and displays the winner or tie*/
     public void DisplayWinner(){
+        if(matchState() == matchStates.TIE){
+            parent.repaint();
+            JOptionPane.showMessageDialog(parent, "The game has tied" );
+            resetBoard();
+        }
         if(matchState() == matchStates.WON){
             parent.repaint();
             JOptionPane.showMessageDialog(parent, pieceColour + " has won the match!" );
+            resetBoard();
         }
         if(isPlayerOne){
             pieceColour = "Red";
@@ -81,7 +97,7 @@ class ConnectFour{
     /** Determines the match state
      *@return enum matchStates */
     public matchStates matchState(){
-        //Check horizontal win conditions
+        //Checks the horizontal win conditions
         for (int column = 0; column < BOARD_SIZE_X - 3; column++){
             for(int row = 0; row < BOARD_SIZE_Y; row++){
                 if (board[column][row].isFull() && board[column][row].getState() == board[column + 1][row].getState() && board[column][row].getState() == board[column + 2][row].getState() && board[column][row].getState() == board[column + 3][row].getState()){
@@ -89,7 +105,7 @@ class ConnectFour{
                 }
             }
         }
-        //check vertical win condition
+        //checks the vertical win condition
         for (int colunm = 0; colunm < BOARD_SIZE_X; colunm++){
             for(int row = 0; row < BOARD_SIZE_Y - 3; row++){
                 if (board[colunm][row].isFull() && board[colunm][row].getState() == board[colunm][row + 1].getState() && board[colunm][row].getState() == board[colunm][row + 2].getState() && board[colunm][row].getState() == board[colunm][row + 3].getState()){
@@ -97,19 +113,19 @@ class ConnectFour{
                 }
             }
         }
-        //check diagonal
+        //checks both diagonals
         for (int column = 0; column < BOARD_SIZE_X - 3; column++){
             for (int row = 0; row < BOARD_SIZE_Y - 3; row++){
                 if (board[column][row].isFull() && board[column][row].getState() == board[column + 1][row + 1].getState() && board[column][row].getState() == board[column + 2][row + 2].getState() && board[column][row].getState() == board[column + 3][row + 3].getState()){
                     return matchStates.WON;
                 }
-                if (column + 3 < BOARD_SIZE_X && row + 3 < BOARD_SIZE_Y && board[column + 3][row].isFull() && board[column + 3][row].getState() == board[column + 2][row + 1].getState() && board[column + 3][row].getState() == board[column + 1][row + 2].getState() && board[column + 3][row].getState() == board[column][row + 3].getState()){
+                if (board[column + 3][row].isFull() && board[column + 3][row].getState() == board[column + 2][row + 1].getState() && board[column + 3][row].getState() == board[column + 1][row + 2].getState() && board[column + 3][row].getState() == board[column][row + 3].getState()){
                     return matchStates.WON;
                 }
             }
         }
 
-        //check if board is full
+        //checks if the board is full
         for (int column = 0; column < BOARD_SIZE_X; column++){
             for (int row = 0; row < BOARD_SIZE_Y; row++){
                 if (!board[column][row].isFull()){
@@ -117,7 +133,7 @@ class ConnectFour{
                 }
             }
         }
-        //if the board is full then it is a tie
+        //if the board is full and no win condition is found then it is a tie
         return matchStates.TIE;
     }
 

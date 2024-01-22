@@ -52,6 +52,7 @@ class A7 extends JFrame {
             A7 Panel = new A7();
             Panel.run();
 
+            //Constantly updates board and ends the program if someone has won
             while (true){
                 _ConnectFour.DisplayWinner();
                 Panel.repaint();
